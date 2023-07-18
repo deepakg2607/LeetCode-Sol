@@ -45,7 +45,7 @@ class Solution {
             return dp[n];
         }
         int include=solve(arr , n-2 , dp)+ arr[n];
-        int exclude=solve(arr , n-1 , dp);
+        int exclude=solve(arr , n-1 , dp)+0;
         dp[n]= Math.max(include , exclude);
         return dp[n];
     }
