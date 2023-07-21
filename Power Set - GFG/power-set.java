@@ -29,29 +29,30 @@ class GFG
 //User function Template for Java
 
 class Solution
+
 {
-    public static void deepak(String s, String ans , int i, List<String> a)
+    public List<String> subset(String s ,String ans)
     {
-        if(i>=s.length())
-        {
-            if(ans.length()>0)
-            a.add(ans);
-            return;
-        }
-        //exclude
-        deepak(s, ans, i+1, a);
-        
-        char dee=s.charAt(i);
-        ans=ans+Character.toString(dee);
-        deepak(s, ans, i+1, a);
+       if(s.isEmpty())
+       {
+           List<String> list=new ArrayList<>(); 
+           list.add(ans);
+           return list;
+       }
+        List<String> left =subset(s.substring(1) , ans+s.charAt(0));
+        List<String> right =subset(s.substring(1) , ans);
+        left.addAll(right);
+        return left;
     }
     public List<String> AllPossibleStrings(String s)
     {
-        List<String> a=new ArrayList<>();
-        int index=0;
+        // Code here
+        List<String> list =new ArrayList<>();
         String ans="";
-        deepak(s , ans, index, a);
-        Collections.sort(a);
-        return a;
+        List<String> dee= subset(s, ans);
+        Collections.sort(dee);
+        dee.remove("");
+        return dee;
+        
     }
 }
