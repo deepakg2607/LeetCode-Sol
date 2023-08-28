@@ -31,27 +31,17 @@ public class Main {
 //User function Template for Java
 
 class Solution {
-    int solve(int [] arr , int n , int []dp){
-        if(n<0)
-        {
-            return 0;
-        }
-        if(n==0)
-        {
-            return arr[n];
-        }
-        if(dp[n]!=0)
-        {
-            return dp[n];
-        }
-        int include=solve(arr , n-2 , dp)+ arr[n];
-        int exclude=solve(arr , n-1 , dp);
-        dp[n]= Math.max(include , exclude);
-        return dp[n];
-    }
     int findMaxSum(int arr[], int n) {
         // code here
-        int dp[]=new int[n];
-        return solve(arr , n-1 ,dp);
+        int in = arr[0];
+        int ex = 0;
+        for(int i=1;i<n;i++)
+        {
+            int store = in;
+            in = Math.max(ex+arr[i] , in);
+            ex = store;
+            
+        }
+        return in;
     }
 }
