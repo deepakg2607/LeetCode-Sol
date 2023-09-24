@@ -108,6 +108,8 @@ public class GFG2
 // } Driver Code Ends
 
 
+
+
 //User function Template for Java
 
 /*class Node
@@ -126,38 +128,42 @@ class GFG
     //Function to store the zig zag order traversal of tree in a list.
 	ArrayList<Integer> zigZagTraversal(Node root)
 	{
-	    ArrayList<Integer> list = new ArrayList<>();
-	    boolean flag = true;
-	    Queue<Node> q= new LinkedList<>();
-	    q.offer(root);
-	    while(q.size()!=0)
-	    {
-	        int size= q.size();
-	        List<Integer> temp = new ArrayList<>();
-	        for(int i=0;i<size;i++)
-	        {
-	            if(q.peek().left!=null)
-	            {
-	                q.offer(q.peek().left);
-	            }
-	            if(q.peek().right!=null)
-	            {
-	                q.offer(q.peek().right);
-	            }
-	                 temp.add(q.poll().data);
-	            
-	        }
-	        if(flag)
-	        {
-	            list.addAll(temp);
-	            flag= !flag;
-	        }
-	        else{
-	            Collections.reverse(temp);
-	            list.addAll(temp);
-	            flag=!flag;
-	        }
-	    }
-	    return list;
+	   ArrayList<Integer> res = new ArrayList<>();
+        boolean ltr = true;
+        Queue<Node> q = new LinkedList<>();
+        
+        if(root == null) return res;
+        q.add(root);
+        
+        while(!q.isEmpty()){
+            List<Node> children = new ArrayList<>();
+            int size = q.size();
+            for(int i=0; i<size; i++){
+                Node cur = q.remove();
+                
+                if(cur != null) {
+                    res.add(cur.data);
+                    
+                    if(ltr){
+                        children.add(cur.left);
+                        children.add(cur.right);
+                    }    
+                    else{
+                        children.add(cur.right);
+                        children.add(cur.left);
+                    }
+                }
+            }
+            
+            // change direction
+            ltr = !ltr;
+            
+            // copy children to queue always in reverse order
+            for(int i=children.size()-1; i>=0; i--){
+                q.add( children.get(i) );
+            }
+        }
+        
+        return res;
 	}
 }
